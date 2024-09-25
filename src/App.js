@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import InputForm from './components/InputForm';
+import SpeechBubble from './components/SpeechBubble';
 import './App.css';
 
 function App() {
+  const [response, setResponse] = useState('');
+
+  // Hàm handleApiResponse để nhận phản hồi từ InputForm và cập nhật response
+  const handleApiResponse = (apiResponse) => {
+    setResponse(apiResponse);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {/* Truyền handleApiResponse vào InputForm */}
+      <InputForm
+       handleApiResponse={handleApiResponse}
+        setResponse={setResponse}/>
+      {/* Hiển thị phản hồi từ AI */}
+      {response && <SpeechBubble response={response} />}
     </div>
   );
 }
